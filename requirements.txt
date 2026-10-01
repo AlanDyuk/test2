@@ -1,0 +1,14 @@
+# Core dependencies (pinned versions for reproducibility)
+streamlit>=1.28.0
+pandas>=2.0.0
+httpx>=0.27.0
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+apscheduler>=3.10.0
+psutil>=5.9.0
+passlib[bcrypt]>=1.7.4
+
+# Optional (for development)
+# pytest>=7.0
+# flake8>=6.0
+# mypy>=1.0

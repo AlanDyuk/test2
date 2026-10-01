@@ -1,0 +1,49 @@
+# Byte-compiled / optimized
+__pycache__/
+*.pyc
+*.pyo
+
+# Binary files
+*.db
+*.sqlite3
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Config - DO NOT commit secrets
+.env
+.env.local
+*.env
+
+# Scheduler PID (runtime only)
+scheduler_pid.txt
+*.pid
+
+# Generated data files (regenerated from JSON sources)
+items.json
+world.json
+filtered_resource_items.json
+selected_cities.json
+filter_items_output.json
+
+# Distribution
+dist/
+build/
+*.egg-info/
+
+# Test coverage
+.coverage
+htmlcov/
+.pytest_cache/
