@@ -7,6 +7,12 @@ from __future__ import annotations
 
 import sqlite3
 import os
+import sys
+from pathlib import Path
+
+_root = Path(__file__).resolve().parent
+if str(_root) not in sys.path:
+    sys.path.insert(0, str(_root))
 
 DB_NAME = "albion_market.db"
 ITEMS_JSON = "items.json"
@@ -15,7 +21,7 @@ WORLD_JSON = "world.json"
 
 def setup_database(db_path: str = None):
     """Initialize database schema."""
-    from db.engine import DatabaseEngine
+    from src.db.engine import DatabaseEngine
 
     path = db_path or DB_NAME
     engine = DatabaseEngine(path)

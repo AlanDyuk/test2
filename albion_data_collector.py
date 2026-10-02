@@ -34,26 +34,7 @@ logging.basicConfig(
 logger = logging.getLogger("collector")
 
 from src.config.settings import settings
-from src.collectors.base import MarketPricesCollector, collect_once
-from src.db.engine import DatabaseEngine
-
-
-def collect_once(db_path: str) -> int:
-    """Run one collection cycle and return inserted count."""
-    engine = DatabaseEngine(db_path)
-
-    # 1. Cleanup old data BEFORE collection
-    with engine.session() as conn:
-        collector = MarketPricesCollector(db_path)
-        collector.cleanup_old_data(conn, max_hours_old=settings.max_data_age_hours)
-
-    # 2. Collect new prices
-    with engine.session() as conn:
-        collector = MarketPricesCollector(db_path)
-        inserted = collector.collect(conn)
-
-    engine.close()
-    return inserted
+from src.collectors.base import collect_once
 
 
 def collect_loop(db_path: str, interval: int = 300):

@@ -12,9 +12,11 @@ dependencies = [
     "pandas>=2.0.0",
     "httpx>=0.27.0",
     "pydantic>=2.0.0",
+    "pydantic-settings>=2.0.0",
+    "python-dotenv>=1.0.0",
     "apscheduler>=3.10.0",
     "psutil>=5.9.0",
-    "passlib[bcrypt]>=1.7.4",
+    "bcrypt>=4.0.0",
 ]
 
 [project.optional-dependencies]
@@ -27,3 +29,6 @@ dev = [
 
 [project.scripts]
 albion = "src.ui.cli.main:main"
+
+[tool.setuptools.packages.find]
+include = ["src*"]

@@ -32,7 +32,7 @@ class AppSettings(BaseSettings):
     """Main application settings."""
 
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=str(PROJECT_ROOT / ".env"),
         env_file_encoding="utf-8",
         case_sensitive=False,
         extra="allow",
@@ -46,6 +46,20 @@ class AppSettings(BaseSettings):
     hashed_password: str = Field(
         default="$2b$12$3ViL5Zz/CzSlzEeHmRkk1Ou8NvNbcOtXwhuAVGAeAUVwGGiipk4Fy"
     )
+
+    @field_validator("hashed_password", mode="before")
+    @classmethod
+    def _ensure_hashed(cls, v):
+        """If a raw password is provided, hash it with bcrypt."""
+        if v and not v.startswith("$2b$") and not v.startswith("$2a$"):
+            try:
+                import bcrypt
+                p_bytes = v.encode("utf-8")[:72]
+                return bcrypt.hashpw(p_bytes, bcrypt.gensalt()).decode("utf-8")
+            except ImportError:
+                import hashlib
+                return hashlib.sha256(v.encode("utf-8")).hexdigest()
+        return v
 
     # Albion Online API
     api_host: str = "https://east.albion-online-data.com"
@@ -144,20 +158,6 @@ class AppSettings(BaseSettings):
         p = Path(v)
         if not p.is_absolute():
             return str(PROJECT_ROOT / p)
-        return v
-
-    @field_validator("hashed_password", mode="before")
-    @classmethod
-    def _ensure_hashed(cls, v):
-        """If a raw password is provided, hash it with bcrypt."""
-        if v and not v.startswith("$2b$") and not v.startswith("$2a$"):
-            try:
-                import bcrypt
-                p_bytes = v.encode("utf-8")[:72]
-                return bcrypt.hashpw(p_bytes, bcrypt.gensalt()).decode("utf-8")
-            except ImportError:
-                import hashlib
-                return hashlib.sha256(v.encode("utf-8")).hexdigest()
         return v
 
 

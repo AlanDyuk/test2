@@ -3,14 +3,18 @@ from __future__ import annotations
 
 import os
 import sqlite3
+import sys
 import tempfile
 import unittest
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 
-from auth.password_manager import PasswordManager
-from config.settings import AppSettings
-from db.engine import DatabaseEngine
-from services.trade_analyzer import analyze_trades
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from src.auth.password_manager import PasswordManager
+from src.config.settings import AppSettings
+from src.db.engine import DatabaseEngine
+from src.services.trade_analyzer import analyze_trades
 
 
 class TestAlbionMarketStrategist(unittest.TestCase):

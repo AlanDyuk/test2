@@ -7,14 +7,19 @@ from __future__ import annotations
 
 import argparse
 import sys
+from pathlib import Path
 
-from services.scheduler import Scheduler
-from collectors.base import MarketPricesCollector
+_root = Path(__file__).resolve().parent
+if str(_root) not in sys.path:
+    sys.path.insert(0, str(_root))
+
+from src.services.scheduler import Scheduler
+from src.collectors.base import MarketPricesCollector
 
 
 def start(interval: int = 300, db_path: str = None):
     """Start the scheduler."""
-    from config.settings import settings
+    from src.config.settings import settings
 
     db = db_path or settings.db_path
     scheduler = Scheduler()

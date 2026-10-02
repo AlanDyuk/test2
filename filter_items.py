@@ -6,8 +6,14 @@ Updated to use the modular architecture.
 from __future__ import annotations
 
 import argparse
+import sys
+from pathlib import Path
 
-from services.item_categorizer import filter_resource_items, save_filtered_items
+_root = Path(__file__).resolve().parent
+if str(_root) not in sys.path:
+    sys.path.insert(0, str(_root))
+
+from src.services.item_categorizer import filter_resource_items, save_filtered_items
 
 
 def main():

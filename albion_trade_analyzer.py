@@ -8,9 +8,15 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from pathlib import Path
 
-from config.settings import settings
-from services.trade_analyzer import get_trade_opportunities
+# Automatically discover and attach project root to sys.path
+_root = Path(__file__).resolve().parent
+if str(_root) not in sys.path:
+    sys.path.insert(0, str(_root))
+
+from src.config.settings import settings
+from src.services.trade_analyzer import get_trade_opportunities
 
 # Backward compatibility alias for legacy albion_streamlit_app.py
 analyze_trades = get_trade_opportunities

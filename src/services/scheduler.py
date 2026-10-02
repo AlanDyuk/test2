@@ -28,6 +28,11 @@ class Scheduler:
 
     def __init__(self, pid_file: str = "scheduler_pid.txt"):
         self.pid_file = Path(pid_file)
+        if not self.pid_file.is_absolute():
+            # Anchor relative PID files to the project root, not the CWD,
+            # so start/stop/status work from any directory.
+            root = Path(__file__).resolve().parent.parent.parent
+            self.pid_file = root / self.pid_file
 
     def is_running(self) -> bool:
         """Check if scheduler process is alive."""
