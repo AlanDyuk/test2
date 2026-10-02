@@ -19,15 +19,19 @@ Automated price and order arbitrage scanner for **Albion Online** (East / Asian 
 
 ```
 albion_market_strategist/
-├── config/          # Pydantic configuration & environment settings
-├── api/             # AlbionOnlineData HTTP client & data models
-├── collectors/      # Batch price & catalog data collectors
-├── db/              # SQLite database engine, schema & migrations
-├── services/        # Business logic (trade analyzer, item categorizer, scheduler)
-├── workers/         # Background price collection worker
-├── src/ui/          # Streamlit Web UI & CLI interface
-├── auth/            # Password authentication manager
-└── test_refactor.py # Verification test suite
+├── src/                 # Single source of truth for all application code
+│   ├── config/          # Pydantic configuration & environment settings
+│   ├── api/             # AlbionOnlineData HTTP client & data models
+│   ├── collectors/      # Batch price & catalog data collectors
+│   ├── db/              # SQLite database engine, schema & migrations
+│   ├── services/        # Business logic (trade analyzer, item categorizer, scheduler)
+│   ├── workers/         # Background price collection worker
+│   ├── bootstrap/       # Health checks & self-healing
+│   ├── auth/            # Password authentication manager
+│   └── ui/              # Streamlit Web UI & CLI interface
+├── launcher.py          # Unified launcher (health check, scheduler, web UI)
+├── tests/               # Pytest unit & regression suite
+└── *.py                 # Legacy-compatible CLI entry points (thin wrappers)
 ```
 
 ---
